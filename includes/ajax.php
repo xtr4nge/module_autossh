@@ -1,6 +1,6 @@
 <? 
 /*
-	Copyright (C) 2013  xtr4nge [_AT_] gmail.com
+	Copyright (C) 2013-2014 xtr4nge [_AT_] gmail.com
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -40,12 +40,14 @@ if ($type == "logs") {
 if ($type == "inject") {
 
     if ($newdata != "") { $newdata = ereg_replace(13,  "", $newdata);
-        $exec = "/bin/echo '$newdata' > /usr/share/FruityWifi/www/modules/sslstrip/includes/inject.txt";
-        exec("/usr/share/FruityWifi/bin/danger \"" . $exec . "\"", $output);
+        $exec = "/bin/echo '$newdata' > /usr/share/fruitywifi/www/modules/sslstrip/includes/inject.txt";
+        //exec("/usr/share/FruityWifi/bin/danger \"" . $exec . "\"", $output); //DEPRECATED
+        $output = exec_fruitywifi($exec);
     }
 
-    $exec = "cat /usr/share/FruityWifi/www/modules/sslstrip/includes/inject.txt";
-    exec("/usr/share/FruityWifi/bin/danger \"" . $exec . "\"", $dump);
+    $exec = "cat /usr/share/fruitywifi/www/modules/sslstrip/includes/inject.txt";
+    //exec("/usr/share/FruityWifi/bin/danger \"" . $exec . "\"", $dump); //DEPRECATED
+    $dump = exec_fruitywifi($exec);
 
     echo json_encode($dump);
 

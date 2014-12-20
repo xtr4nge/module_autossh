@@ -44,8 +44,8 @@ $(function() {
 
 <?
 
-include "_info_.php";
 include "../../config/config.php";
+include "_info_.php";
 include "../../login_check.php";
 include "../../functions.php";
 
@@ -66,14 +66,16 @@ $service = $_POST["service"];
 // DELETE LOG
 if ($logfile != "" and $action == "delete") {
     $exec = "$bin_rm ".$mod_logs_history.$logfile.".log";
-    exec("$bin_danger \"$exec\"", $dump);
+    //exec("$bin_danger \"$exec\"", $dump); //DEPRECATED
+    exec_fruitywifi($exec);
 }
 
 // SET MODE
 if ($_POST["change_mode"] == "1") {
     $ss_mode = $service;
     $exec = "$bin_sed -i 's/ss_mode.*/ss_mode = \\\"".$ss_mode."\\\";/g' includes/options_config.php";
-    exec("$bin_danger \"$exec\"", $output);
+    //exec("$bin_danger \"$exec\"", $output); //DEPRECATED
+    $output = exec_fruitywifi($exec);
 }
 
 include "includes/options_config.php";
