@@ -1,9 +1,9 @@
 <?
 $ss_mode = "trap_cookies";
 $autossh_user = "reverse";
-$autossh_host = "172.16.45.236";
+$autossh_host = "192.168.0.100";
 $autossh_port = "22";
-$autossh_rport = "10022";
+$autossh_rport = "22";
 $autossh_listen = "2222";
 
 // autossh options
