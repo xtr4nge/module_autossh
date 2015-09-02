@@ -1,6 +1,6 @@
 <? 
 /*
-    Copyright (C) 2013-2014 xtr4nge [_AT_] gmail.com
+    Copyright (C) 2013-2015 xtr4nge [_AT_] gmail.com
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -48,32 +48,26 @@ if($service != "") {
         // COPY LOG
         if ( 0 < filesize( $mod_logs ) ) {
             $exec = "$bin_cp $mod_logs $mod_logs_history/".gmdate("Ymd-H-i-s").".log";
-            //exec("$bin_danger \"$exec\"" ); //DEPRECATED
             exec_fruitywifi($exec);
             
             $exec = "$bin_echo '' > $mod_logs";
-            //exec("$bin_danger \"$exec\"" ); //DEPRECATED
             exec_fruitywifi($exec);
         }
             
-            $exec = "$bin_autossh -M 0 -o 'ServerAliveInterval 60' -o 'ServerAliveCountMax 3' -N -R $autossh_listen:localhost:$autossh_port $autossh_user@$autossh_host -i id_rsa > /dev/null &";
-            //exec("$bin_danger \"$exec\"" ); //DEPRECATED
+            $exec = "$bin_autossh -M 0 -o 'ServerAliveInterval 60' -o 'ServerAliveCountMax 3' -N -R $autossh_listen:localhost:$autossh_port $autossh_user@$autossh_host -p $autossh_rport -i id_rsa -o CheckHostIP=no > /dev/null &";
             exec_fruitywifi($exec);
         
     } else if($action == "stop") {
         // STOP MODULE
         $exec = "$bin_killall $mod_name";
-        //exec("$bin_danger \"$exec\"" ); //DEPRECATED
         exec_fruitywifi($exec);
         
         // COPY LOG
         if ( 0 < filesize( $mod_logs ) ) {
             $exec = "$bin_cp $mod_logs $mod_logs_history/".gmdate("Ymd-H-i-s").".log";
-            //exec("$bin_danger \"$exec\"" ); //DEPRECATED
             exec_fruitywifi($exec);
             
             $exec = "$bin_echo '' > $mod_logs";
-            //exec("$bin_danger \"$exec\"" ); //DEPRECATED
             exec_fruitywifi($exec);
         }
 
@@ -83,15 +77,12 @@ if($service != "") {
 
 if ($ssh_cert == "gen_certificate") {
     $exec = "$bin_rm id_rsa";
-    //exec("$bin_danger \"$exec\"" ); //DEPRECATED
     exec_fruitywifi($exec);
     
     $exec = "$bin_rm id_rsa.pub";
-    //exec("$bin_danger \"$exec\"" ); //DEPRECATED
     exec_fruitywifi($exec);
     
     $exec = "$bin_ssh_keygen -t rsa -f id_rsa -C @FruityWifi";
-    //exec("$bin_danger \"$exec\"" ); //DEPRECATED
     exec_fruitywifi($exec);
     
     header('Location: ../index.php');
@@ -101,11 +92,9 @@ if ($ssh_cert == "gen_certificate") {
 if ($install == "install_$mod_name") {
 
     $exec = "chmod 755 install.sh";
-    //exec("$bin_danger \"$exec\"" ); //DEPRECATED
     exec_fruitywifi($exec);
 
     $exec = "$bin_sudo ./install.sh > $log_path/install.txt &";
-    //exec("$bin_danger \"$exec\"" ); //DEPRECATED
     exec_fruitywifi($exec);
 
     header('Location: ../../install.php?module='.$mod_name);

@@ -31,21 +31,22 @@ $new_rename_file = $_POST["new_rename_file"];
 $autossh_host = $_POST["autossh_host"];
 $autossh_port = $_POST["autossh_port"];
 $autossh_listen = $_POST["autossh_listen"];
+$autossh_rport = $_POST["autossh_port"];
 
 // autossh settings
 if ($type == "settings") {
 
 	
     $exec = "/bin/sed -i 's/autossh_host.*/autossh_host = \\\"".$_POST["autossh_host"]."\\\";/g' options_config.php";
-    //exec("$bin_danger \"" . $exec . "\"", $output); //DEPRECATED
     $output = exec_fruitywifi($exec);
 
     $exec = "/bin/sed -i 's/autossh_port.*/autossh_port = \\\"".$_POST["autossh_port"]."\\\";/g' options_config.php";
-    //exec("$bin_danger \"" . $exec . "\"", $output); //DEPRECATED
     exec_fruitywifi($exec);
 
     $exec = "/bin/sed -i 's/autossh_listen.*/autossh_listen = \\\"".$_POST["autossh_listen"]."\\\";/g' options_config.php";
-    //exec("$bin_danger \"" . $exec . "\"", $output); //DEPRECATED
+    exec_fruitywifi($exec);
+	
+	$exec = "/bin/sed -i 's/autossh_rport.*/autossh_rport = \\\"".$_POST["autossh_rport"]."\\\";/g' options_config.php";
     exec_fruitywifi($exec);
 	
     header('Location: ../index.php?tab=0');
@@ -61,7 +62,6 @@ if ($type == "mode_ettercap") {
         //echo $tmp[$i]."<br>";
         
         $exec = "/bin/sed -i 's/mode_options\\[\\\"".$tmp[$i]."\\\"\\]\\[0\\].*/mode_options\\[\\\"".$tmp[$i]."\\\"\\]\\[0\\] = 0;/g' options_config.php";
-        //exec("/usr/share/FruityWifi/bin/danger \"" . $exec . "\"", $output); //DEPRECATED
         $output = exec_fruitywifi($exec);
         
     }
@@ -71,7 +71,6 @@ if ($type == "mode_ettercap") {
         //echo $tmp[$i]."<br>";
         
         $exec = "/bin/sed -i 's/mode_options\\[\\\"".$tmp[$i]."\\\"\\]\\[0\\].*/mode_options\\[\\\"".$tmp[$i]."\\\"\\]\\[0\\] = 1;/g' options_config.php";
-        //exec("/usr/share/FruityWifi/bin/danger \"" . $exec . "\"", $output); //DEPRECATED
         $output = exec_fruitywifi($exec);
         
     }
@@ -91,7 +90,6 @@ if ($type == "templates") {
 			if ($newdata != "") { $newdata = ereg_replace(13,  "", $newdata);
 				$template_path = "$mod_path/includes/templates";
         		$exec = "/bin/echo '$newdata' | base64 --decode > $template_path/$tempname";
-        		//exec("/usr/share/FruityWifi/bin/danger \"" . $exec . "\"", $output); //DEPRECATED
                 $output = exec_fruitywifi($exec);
     		}
     	}
@@ -103,7 +101,6 @@ if ($type == "templates") {
 			if ($new_rename_file != "") {
 				$template_path = "$mod_path/includes/templates";
 				$exec = "/bin/touch $template_path/$new_rename_file";
-				//exec("/usr/share/FruityWifi/bin/danger \"" . $exec . "\"", $output); //DEPRECATED
                 $output = exec_fruitywifi($exec);
 
 				$tempname=$new_rename_file;
@@ -112,7 +109,6 @@ if ($type == "templates") {
 			//RENAME TEMPLATE
 			$template_path = "$mod_path/includes/templates";
 			$exec = "/bin/mv $template_path/$new_rename $template_path/$new_rename_file";
-			//exec("/usr/share/FruityWifi/bin/danger \"" . $exec . "\"", $output); //DEPRECATED
             $output = exec_fruitywifi($exec);
 
 			$tempname=$new_rename_file;
@@ -123,7 +119,6 @@ if ($type == "templates") {
 			//DELETE TEMPLATE
 			$template_path = "$mod_path/includes/templates";
 			$exec = "/bin/rm $template_path/$new_rename";
-			//exec("/usr/share/FruityWifi/bin/danger \"" . $exec . "\"", $output); //DEPRECATED
             $output = exec_fruitywifi($exec);
 		}
 	}
