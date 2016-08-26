@@ -87,7 +87,9 @@ if ($type == "templates") {
 		
 		if ($tempname != "0") {
 			// SAVE TAMPLATE
-			if ($newdata != "") { $newdata = ereg_replace(13,  "", $newdata);
+			if ($newdata != "") {
+				//$newdata = ereg_replace(13,  "", $newdata); //DEPRECATED
+				$newdata = preg_replace("/[\n\r]/",  "", $newdata);
 				$template_path = "$mod_path/includes/templates";
         		$exec = "/bin/echo '$newdata' | base64 --decode > $template_path/$tempname";
                 $output = exec_fruitywifi($exec);
